@@ -1,6 +1,5 @@
 # algorithm-lab
 Interactive Pathfinding Algorithm Visualizer and Game
-[README_algorithm_lab.md](https://github.com/user-attachments/files/35211396/README_algorithm_lab.md)
 # Algorithm Lab — Interactive Pathfinding Game
 
 **Live demo:** https://rashadnabiyev009.github.io/algorithm-lab/
