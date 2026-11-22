@@ -40,7 +40,7 @@
 <p class="small" data-batch="caution">For a rigorous benchmark, repeat on multiple devices and report limitations. A single experiment is not proof that one algorithm is always fastest.</p>
 </section>
 <section class="panel player-research" id="playerResearch" aria-labelledby="playerResearchTitle">
-  <div class="eyebrow">PLAYER RESEARCH · v5.0 PREVIEW</div>
+  <div class="eyebrow">PLAYER RESEARCH · v5.0</div>
   <h2 id="playerResearchTitle">İnsanların labirint həllini araşdırma / Player research</h2>
   <p id="playerResearchInfo">Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.</p>
   <div class="privacy">
@@ -49,19 +49,24 @@
   </div>
   <div class="controls"><button id="submitPlayerResult" class="success" disabled>Share completed result / Nəticəni göndər</button><button id="clearPlayerConsent" type="button">Clear choice / Seçimi sıfırla</button></div>
   <p id="playerResultPreview" class="mini">No completed game yet / Hələ oyun tamamlanmayıb.</p>
-  <p id="playerSubmitStatus" class="status warn" role="status" aria-live="polite">Demo mode — nothing is transmitted / Demo rejimi — məlumat göndərilmir.</p>
+  <p id="playerSubmitStatus" class="status warn" role="status" aria-live="polite">Server bağlantısı qurulmayıb — hazırda məlumat göndərilmir.</p>
 </section>
 <footer>Built with <span class="credit">HTML · CSS · JavaScript</span> — <span data-i18n="noServer">BFS, DFS, A* və Research Mode brauzerdə işləyir.</span> <span id="footerText"><span data-i18n="footerMsg">Bu oyunu şəxsi GitHub Pages saytında yayımlaya bilərsən.</span></span></footer>
 </main><script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id);let grid=[],N=13,start=[1,1],goal=[11,11],pos=[1,1],steps=0,finished=false,busy=false,runToken=0,lastSolved=null,showSeen=new Set(),showPath=new Set();
-// v5 preview: submission remains OFF until backend rate limits, abuse protection,
-// consent policy, and cross-origin browser tests have been independently verified.
+// IMPORTANT: use ONLY the legacy public `anon` JWT here, not a secret key.
+// The Edge Function currently requires Verify JWT with legacy secret = ON.
+// Public anon keys cannot prevent forged submissions; study data remains unverified.
 const PLAYER_RESEARCH_CONFIG = Object.freeze({
-  enabled: false,
+  enabled: true,
   functionUrl: "https://jcflftbeiergujcqmuow.supabase.co/functions/v1/submit-game-result",
-  publishableKey: "" // Never place a secret/service-role key in browser code.
+  anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjZmxmdGJlaWVyZ3VqY3FtdW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUyNjU3NDgsImV4cCI6MjExMDg0MTc0OH0.JiSYjanTonMovSYGGfZFTLkNHghYcrhgZ_eUiLaoheQ"
 });
+const canSubmitToServer = () =>
+  PLAYER_RESEARCH_CONFIG.enabled &&
+  PLAYER_RESEARCH_CONFIG.anonKey.startsWith('eyJ') &&
+  PLAYER_RESEARCH_CONFIG.anonKey.split('.').length === 3;
 let playerStartedAt = null;
 let completedPlayerRun = null;
 let playerSubmitBusy = false;
@@ -70,11 +75,11 @@ const playerStrings = {
     heading: 'İnsanların labirint həllini araşdırma',
     info: 'Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.',
     consent: 'İştirak etmək istəyirəm. Yalnız bu oyunun nəticəsini göndərməyə razıyam. Adım, e-poçtum və hesab məlumatlarım istənilmir.',
-    privacy: 'İştirak könüllüdür. Heç nə avtomatik göndərilmir. Paylaşmaq üçün labirinti bitirməlisən. Server bağlantısı təhlükəsizlik sınaqları bitənədək bağlıdır.',
+    privacy: 'İştirak könüllüdür. Heç nə avtomatik göndərilmir. Yalnız oyunu tamamlayıb təsdiqlədikdə addım, optimal yol, müddət və labirint ölçüsü göndərilir. Server provayderi texniki sorğu qeydləri saxlaya bilər. Nəticələr yoxlanılmamış tədqiqat məlumatıdır.',
     send: 'Nəticəni göndər', clear: 'Seçimi sıfırla',
     empty: 'Hələ oyun tamamlanmayıb.',
     result: r => `Tamamlanmış labirint: ${r.maze_size}×${r.maze_size}, ${r.player_steps} addım, ən qısa yol ${r.optimal_steps} addım, ${r.elapsed_seconds} saniyə.`,
-    disabled: 'Demo rejimi: serverə məlumat göndərilmir.',
+    disabled: 'Bağlantı üçün legacy public anon JWT açarını faylda daxil et. Hazırda məlumat göndərilmir.',
     noConsent: 'Göndərmək üçün könüllü razılığı seç.',
     noFinish: 'Əvvəl labirinti tamamla.',
     sending: 'Nəticə göndərilir…', success: 'Nəticə serverdə saxlanıldı.', failed: 'Göndərilmədi. Yenidən cəhd edə bilərsən.'
@@ -83,11 +88,11 @@ const playerStrings = {
     heading: 'Player pathfinding research',
     info: 'After finishing the maze, you may voluntarily share your steps, shortest path length, and completion time for research.',
     consent: 'I choose to participate. I agree to submit this game result only. No name, email, or account details are requested.',
-    privacy: 'Participation is optional. Nothing is sent automatically. Finish the maze first. Server submissions remain off until safety checks are complete.',
+    privacy: 'Participation is optional. Nothing is sent automatically. Only after finishing and opting in are maze size, step count, shortest route and elapsed time sent. The hosting provider may retain technical request logs. Results are unverified research data.',
     send: 'Share game result', clear: 'Clear choice',
     empty: 'No completed game yet.',
     result: r => `Completed: ${r.maze_size}×${r.maze_size}, ${r.player_steps} steps, shortest route ${r.optimal_steps} steps, ${r.elapsed_seconds} seconds.`,
-    disabled: 'Preview mode: no data is sent to the server.',
+    disabled: 'Configure the legacy public anon JWT key in this file. Nothing is transmitted yet.',
     noConsent: 'Choose the voluntary consent box first.',
     noFinish: 'Finish the maze first.',
     sending: 'Sending result…', success: 'Result saved by server.', failed: 'Could not send result. You may try again.'
@@ -102,19 +107,19 @@ function renderPlayerResearch() {
   $('submitPlayerResult').textContent=t.send;
   $('clearPlayerConsent').textContent=t.clear;
   $('playerResultPreview').textContent=completedPlayerRun?t.result(completedPlayerRun):t.empty;
-  $('submitPlayerResult').disabled=!PLAYER_RESEARCH_CONFIG.enabled||!PLAYER_RESEARCH_CONFIG.publishableKey||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy;
-  if(!PLAYER_RESEARCH_CONFIG.enabled) $('playerSubmitStatus').textContent=t.disabled;
+  $('submitPlayerResult').disabled=!canSubmitToServer()||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy;
+  if(!canSubmitToServer()) $('playerSubmitStatus').textContent=t.disabled;
 }
 $('researchConsent').addEventListener('change',renderPlayerResearch);
 $('clearPlayerConsent').addEventListener('click',()=>{$('researchConsent').checked=false;renderPlayerResearch()});
 $('submitPlayerResult').addEventListener('click',async()=>{
-  if(!PLAYER_RESEARCH_CONFIG.enabled||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy)return;
+  if(!canSubmitToServer()||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy)return;
   playerSubmitBusy=true;renderPlayerResearch();
   $('playerSubmitStatus').textContent=playerStrings[lang].sending;
   try {
     const response=await fetch(PLAYER_RESEARCH_CONFIG.functionUrl,{
       method:'POST',mode:'cors',
-      headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.publishableKey},
+      headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.anonKey,'Authorization':'Bearer '+PLAYER_RESEARCH_CONFIG.anonKey},
       body:JSON.stringify({...completedPlayerRun,consent:true})
     });
     const result=await response.json();
