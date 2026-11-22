@@ -10,10 +10,12 @@
 .research{margin-top:20px}.research h2{margin:0 0 4px;font-size:23px}.research-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}.research h3{font-size:16px;margin:4px 0 12px}.chart-row{margin:12px 0}.chart-head{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:5px}.track{height:13px;background:#0a1627;border-radius:20px;overflow:hidden;border:1px solid #2e4764}.bar{height:100%;border-radius:20px;min-width:0;transition:width .3s}.bar.bfs{background:#69acff}.bar.dfs{background:#f1bb6a}.bar.astar{background:#5de2b1}.research table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}.research th,.research td{padding:8px 5px;border-bottom:1px solid #2b3e56}.research th{color:#b6cafa;font-size:12px}.metric-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.metric-tabs button[aria-pressed="true"]{background:#297bdd;border-color:#64aaff}.research .notes{font-size:12px;line-height:1.6;color:var(--muted)}.research .empty{padding:24px 10px;color:var(--muted);text-align:center;border:1px dashed #34506b;border-radius:10px}.research .pill{display:inline-block;color:#91efd1;border:1px solid #285e57;border-radius:100px;padding:4px 9px;font-size:12px}.research details{margin-top:14px;border-top:1px solid #2e4764;padding-top:12px}.research summary{cursor:pointer;font-weight:700}.research code{color:#cbe7fa}@media(max-width:760px){.research-grid{grid-template-columns:1fr}.research table{font-size:12px}}
 
 .batch{margin-top:20px}.batch h2{font-size:23px;margin:0 0 6px}.batch-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.batch-controls label{display:grid;gap:5px}.batch input{width:140px;background:#1c2f4c;color:var(--text);border:1px solid #385274;border-radius:9px;padding:10px;font:inherit}.batch table{width:100%;border-collapse:collapse;font-size:13px}.batch th,.batch td{padding:10px;border-bottom:1px solid #32425a;text-align:left}.batch th{color:#aecbf9}.batch .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}.batch .summary .stat b{font-size:18px}.batch .status{color:var(--green);min-height:25px}.batch .small{font-size:12px;color:var(--muted)}@media(max-width:650px){.batch .summary{grid-template-columns:1fr}.batch th,.batch td{padding:7px 5px;font-size:12px}}
+
+.player-research{margin-top:20px}.player-research h2{margin:0 0 7px;font-size:23px}.player-research .privacy{padding:14px;background:#0b182b;border:1px solid #294663;border-radius:12px;margin:14px 0}.player-research label.optin{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text)}.player-research input[type=checkbox]{margin-top:4px;width:18px;height:18px;flex-shrink:0;accent-color:#5de2b1}.player-research .status{min-height:24px;color:#bcd6f4}.player-research .status.warn{color:#ffd46c}.player-research .mini{font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body><main class="wrap">
-<header><div><div class="eyebrow">COMPUTER SCIENCE × GAME DESIGN</div><h1>🧠 Algorithm Lab</h1><p><span data-i18n="subtitle">Labirinti həll et, sonra BFS, DFS və A* alqoritmləri ilə nəticəni müqayisə et.</span></p></div><span class="tag">PORTFOLIO PROJECT · v4.0</span><div class="lang-switch"><label for="language" id="langLabel">Dil / Language</label><select id="language" aria-label="Language"><option value="az">🇦🇿 Azərbaycan</option><option value="en">🇬🇧 English</option></select></div></header>
+<header><div><div class="eyebrow">COMPUTER SCIENCE × GAME DESIGN</div><h1>🧠 Algorithm Lab</h1><p><span data-i18n="subtitle">Labirinti həll et, sonra BFS, DFS və A* alqoritmləri ilə nəticəni müqayisə et.</span></p></div><span class="tag">PORTFOLIO PROJECT · v5.0 (PREVIEW)</span><div class="lang-switch"><label for="language" id="langLabel">Dil / Language</label><select id="language" aria-label="Language"><option value="az">🇦🇿 Azərbaycan</option><option value="en">🇬🇧 English</option></select></div></header>
 <div class="layout"><section class="panel"><div class="controls"><label for="level"><span data-i18n="levelLabel">Səviyyə</span></label><select id="level"><option value="easy"><span data-i18n="easy">Asan (9×9)</span></option><option value="medium" selected><span data-i18n="medium">Orta (13×13)</span></option><option value="hard"><span data-i18n="hard">Çətin (17×17)</span></option></select><button id="new"><span data-i18n="newMaze">↻ Yeni labirint</span></button><button id="reset"><span data-i18n="resetBtn">Sıfırla</span></button></div><div class="board" id="board" role="group" aria-label="Labirint oyun lövhəsi" data-i18n-aria="boardLabel"></div><div class="legend"><span><i class="dot" style="background:#408aff"></i><span data-i18n="startLegend">Başlanğıc</span></span><span><i class="dot" style="background:#d8a44b"></i><span data-i18n="goalLegend">Finiş</span></span><span><i class="dot" style="background:#0b1627;border:1px solid #4c6587"></i><span data-i18n="wallLegend">Divar</span></span><span><i class="dot" style="background:#245779"></i><span data-i18n="seenLegend">Axtarılan</span></span><span><i class="dot" style="background:#2c9079"></i><span data-i18n="pathLegend">Tapılan yol</span></span></div><div class="msg" id="message" role="status" aria-live="polite"><span data-i18n="introMessage">Gəmini ox düymələri və ya aşağıdakı idarəetmə ilə finişə çatdır.</span></div><div class="controls" style="justify-content:center;margin-top:8px"><button data-dir="up" aria-label="Yuxarı" data-i18n-aria="up">↑</button><button data-dir="left" aria-label="Sol" data-i18n-aria="left">←</button><button data-dir="down" aria-label="Aşağı" data-i18n-aria="down">↓</button><button data-dir="right" aria-label="Sağ" data-i18n-aria="right">→</button></div></section>
 <aside class="panel side"><h2><span data-i18n="testTitle">Alqoritm sınağı</span></h2><p><span data-i18n="testDescription">Öz yolunu tap, sonra kompüterin eyni problemi necə həll etdiyini gör.</span></p><div class="mode"><span data-i18n="modeTitle">OYUN / İNTERAKTİV VİZUALİZASİYA</span></div><div class="stats"><div class="stat"><small><span data-i18n="stepsLabel">Sənin addımların</span></small><b id="steps">0</b></div><div class="stat"><small><span data-i18n="optimalLabel">Optimal məsafə</span></small><b id="optimal">—</b></div><div class="stat"><small><span data-i18n="exploredLabel">Yoxlanan xanalar</span></small><b id="explored">—</b></div><div class="stat"><small><span data-i18n="routeLabel">Alqoritmin yolu</span></small><b id="route">—</b></div></div><div class="controls"><label for="algorithm"><span data-i18n="algorithmLabel">Alqoritm</span></label><select id="algorithm"><option value="bfs">BFS</option><option value="dfs">DFS</option><option value="astar">A* (A-star)</option></select></div><div class="controls"><button class="primary" id="solve"><span data-i18n="solveBtn">▶ Alqoritmi göstər</span></button><button class="success" id="compare"><span data-i18n="compareBtn">⚖ Müqayisə et</span></button></div><div id="report" class="note"><span data-i18n="tip"><strong>İpucu:</strong> BFS ən qısa yolu təmin edir. DFS hər zaman ən qısa yolu tapmır. A* isə Manhetten məsafəsi ilə istiqamətlənir.</span></div><h3><span data-i18n="howTitle">Necə oynanır?</span></h3><ol><li><span data-i18n="how1">Başlanğıcdan ⭐ finişə get.</span></li><li><span data-i18n="how2">Ox düymələri, WASD və ya ekrandakı idarəetmədən istifadə et.</span></li><li><span data-i18n="how3">Alqoritm seç və axtarış prosesini izlә.</span></li><li><span data-i18n="how4">Yoxlanan xanaların və yol uzunluğunun fərqini müqayisə et.</span></li></ol><h3><span data-i18n="academicTitle">Akademik tərəfi</span></h3><p class="note"><span data-i18n="academicBody">Mövzular: qraf nəzəriyyəsi, BFS, DFS, A*, heuristika, verilənlər strukturları, alqoritmik mürəkkəblik və insan–kompüter qarşılıqlı əlaqəsi.</span></p></aside></div>
 <section class="panel research" id="research"><div class="controls" style="justify-content:space-between;margin-bottom:0"><div><div class="eyebrow" data-research="eyebrow">RESEARCH MODE · EXPERIMENT</div><h2 data-research="heading">Scientific Performance Analysis</h2><p data-research="description">Compare all three algorithms on the same maze.</p></div><button id="runResearch" class="primary" data-research="run">Run experiment</button></div><div class="research-grid"><div><h3 data-research="chartTitle">Measured results</h3><div class="metric-tabs" role="group" aria-label="Chart metric"><button type="button" data-metric="visited" aria-pressed="true" data-research="visited">Explored cells</button><button type="button" data-metric="path" aria-pressed="false" data-research="path">Path length</button><button type="button" data-metric="time" aria-pressed="false" data-research="time">Runtime (ms)</button></div><div id="researchBars" aria-live="polite" class="empty">Run the experiment to see results.</div><p class="notes" data-research="chartNote">Bars show values from the current maze, not example data.</p></div><div><h3 data-research="tableTitle">Experimental data</h3><div style="overflow-x:auto"><table><thead><tr><th data-research="algo">Algorithm</th><th data-research="visitedShort">Cells</th><th data-research="pathShort">Steps</th><th data-research="timeShort">Time (ms)</th></tr></thead><tbody id="researchRows"><tr><td colspan="4" data-research="empty">No measurements yet.</td></tr></tbody></table></div><p class="notes" data-research="timeNote">Runtime is the median of 50 synchronous searches, excluding drawing and animation. Small times vary by device and browser.</p></div></div><details><summary data-research="complexityTitle">Algorithm complexity & methodology</summary><div class="research-grid"><div><h3>BFS</h3><p data-research="bfsInfo">Breadth-first search explores in layers. Time O(V+E), space O(V). Optimal for unweighted graphs.</p><h3>DFS</h3><p data-research="dfsInfo">Depth-first search follows a branch before backtracking. Time O(V+E), space O(V). Not necessarily optimal.</p></div><div><h3>A*</h3><p data-research="astarInfo">A* uses f(n)=g(n)+h(n) with Manhattan distance. Its worst-case time and space can grow exponentially with solution depth; performance depends on the heuristic and implementation.</p><p class="notes" data-research="methodInfo">The maze is a grid graph. Each walkable cell is a vertex and orthogonal moves are edges of cost 1. All algorithms receive the same maze; measurements are approximate and not a controlled benchmark. This implementation uses an array-backed priority queue for A* and an array queue for BFS.</p></div></div></details></section>
@@ -37,10 +39,93 @@
 <p class="small" data-batch="method">Each trial uses a deterministic maze seed. All three algorithms receive the same grid. Runtime is the median of 10 searches, excluding animation and rendering; measurements depend on the device, browser, and implementation. Export the raw data for further analysis.</p>
 <p class="small" data-batch="caution">For a rigorous benchmark, repeat on multiple devices and report limitations. A single experiment is not proof that one algorithm is always fastest.</p>
 </section>
-<footer>Built with <span class="credit">HTML · CSS · JavaScript</span> — <span data-i18n="noServer">Heç bir kitabxana və server tələb olunmur.</span> <span id="footerText"><span data-i18n="footerMsg">Bu oyunu şəxsi GitHub Pages saytında yayımlaya bilərsən.</span></span></footer>
+<section class="panel player-research" id="playerResearch" aria-labelledby="playerResearchTitle">
+  <div class="eyebrow">PLAYER RESEARCH · v5.0 PREVIEW</div>
+  <h2 id="playerResearchTitle">İnsanların labirint həllini araşdırma / Player research</h2>
+  <p id="playerResearchInfo">Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.</p>
+  <div class="privacy">
+    <label class="optin"><input id="researchConsent" type="checkbox"><span id="consentText">İştirak etmək istəyirəm. Yalnız bu oyunun nəticəsini göndərməyə razıyam. Adım, e-poçtum və hesab məlumatlarım istənilmir.</span></label>
+    <p class="mini" id="privacyDetail">İştirak könüllüdür. Heç nə avtomatik göndərilmir. Paylaşmaq üçün əvvəl labirinti bitirməlisən. Bu versiyada serverə göndərmə hələ aktiv deyil.</p>
+  </div>
+  <div class="controls"><button id="submitPlayerResult" class="success" disabled>Share completed result / Nəticəni göndər</button><button id="clearPlayerConsent" type="button">Clear choice / Seçimi sıfırla</button></div>
+  <p id="playerResultPreview" class="mini">No completed game yet / Hələ oyun tamamlanmayıb.</p>
+  <p id="playerSubmitStatus" class="status warn" role="status" aria-live="polite">Demo mode — nothing is transmitted / Demo rejimi — məlumat göndərilmir.</p>
+</section>
+<footer>Built with <span class="credit">HTML · CSS · JavaScript</span> — <span data-i18n="noServer">BFS, DFS, A* və Research Mode brauzerdə işləyir.</span> <span id="footerText"><span data-i18n="footerMsg">Bu oyunu şəxsi GitHub Pages saytında yayımlaya bilərsən.</span></span></footer>
 </main><script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id);let grid=[],N=13,start=[1,1],goal=[11,11],pos=[1,1],steps=0,finished=false,busy=false,runToken=0,lastSolved=null,showSeen=new Set(),showPath=new Set();
+// v5 preview: submission remains OFF until backend rate limits, abuse protection,
+// consent policy, and cross-origin browser tests have been independently verified.
+const PLAYER_RESEARCH_CONFIG = Object.freeze({
+  enabled: false,
+  functionUrl: "https://jcflftbeiergujcqmuow.supabase.co/functions/v1/submit-game-result",
+  publishableKey: "" // Never place a secret/service-role key in browser code.
+});
+let playerStartedAt = null;
+let completedPlayerRun = null;
+let playerSubmitBusy = false;
+const playerStrings = {
+  az: {
+    heading: 'İnsanların labirint həllini araşdırma',
+    info: 'Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.',
+    consent: 'İştirak etmək istəyirəm. Yalnız bu oyunun nəticəsini göndərməyə razıyam. Adım, e-poçtum və hesab məlumatlarım istənilmir.',
+    privacy: 'İştirak könüllüdür. Heç nə avtomatik göndərilmir. Paylaşmaq üçün labirinti bitirməlisən. Server bağlantısı təhlükəsizlik sınaqları bitənədək bağlıdır.',
+    send: 'Nəticəni göndər', clear: 'Seçimi sıfırla',
+    empty: 'Hələ oyun tamamlanmayıb.',
+    result: r => `Tamamlanmış labirint: ${r.maze_size}×${r.maze_size}, ${r.player_steps} addım, ən qısa yol ${r.optimal_steps} addım, ${r.elapsed_seconds} saniyə.`,
+    disabled: 'Demo rejimi: serverə məlumat göndərilmir.',
+    noConsent: 'Göndərmək üçün könüllü razılığı seç.',
+    noFinish: 'Əvvəl labirinti tamamla.',
+    sending: 'Nəticə göndərilir…', success: 'Nəticə serverdə saxlanıldı.', failed: 'Göndərilmədi. Yenidən cəhd edə bilərsən.'
+  },
+  en: {
+    heading: 'Player pathfinding research',
+    info: 'After finishing the maze, you may voluntarily share your steps, shortest path length, and completion time for research.',
+    consent: 'I choose to participate. I agree to submit this game result only. No name, email, or account details are requested.',
+    privacy: 'Participation is optional. Nothing is sent automatically. Finish the maze first. Server submissions remain off until safety checks are complete.',
+    send: 'Share game result', clear: 'Clear choice',
+    empty: 'No completed game yet.',
+    result: r => `Completed: ${r.maze_size}×${r.maze_size}, ${r.player_steps} steps, shortest route ${r.optimal_steps} steps, ${r.elapsed_seconds} seconds.`,
+    disabled: 'Preview mode: no data is sent to the server.',
+    noConsent: 'Choose the voluntary consent box first.',
+    noFinish: 'Finish the maze first.',
+    sending: 'Sending result…', success: 'Result saved by server.', failed: 'Could not send result. You may try again.'
+  }
+};
+function renderPlayerResearch() {
+  const t=playerStrings[lang];
+  $('playerResearchTitle').textContent=t.heading;
+  $('playerResearchInfo').textContent=t.info;
+  $('consentText').textContent=t.consent;
+  $('privacyDetail').textContent=t.privacy;
+  $('submitPlayerResult').textContent=t.send;
+  $('clearPlayerConsent').textContent=t.clear;
+  $('playerResultPreview').textContent=completedPlayerRun?t.result(completedPlayerRun):t.empty;
+  $('submitPlayerResult').disabled=!PLAYER_RESEARCH_CONFIG.enabled||!PLAYER_RESEARCH_CONFIG.publishableKey||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy;
+  if(!PLAYER_RESEARCH_CONFIG.enabled) $('playerSubmitStatus').textContent=t.disabled;
+}
+$('researchConsent').addEventListener('change',renderPlayerResearch);
+$('clearPlayerConsent').addEventListener('click',()=>{$('researchConsent').checked=false;renderPlayerResearch()});
+$('submitPlayerResult').addEventListener('click',async()=>{
+  if(!PLAYER_RESEARCH_CONFIG.enabled||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy)return;
+  playerSubmitBusy=true;renderPlayerResearch();
+  $('playerSubmitStatus').textContent=playerStrings[lang].sending;
+  try {
+    const response=await fetch(PLAYER_RESEARCH_CONFIG.functionUrl,{
+      method:'POST',mode:'cors',
+      headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.publishableKey},
+      body:JSON.stringify({...completedPlayerRun,consent:true})
+    });
+    const result=await response.json();
+    if(!response.ok||!result.saved)throw new Error('Save failed');
+    $('playerSubmitStatus').textContent=playerStrings[lang].success;
+    completedPlayerRun=null;
+    $('researchConsent').checked=false;
+  }catch(e){$('playerSubmitStatus').textContent=playerStrings[lang].failed}
+  finally{playerSubmitBusy=false;renderPlayerResearch()}
+});
+
 
 const translations={
  az:{subtitle:'Labirinti həll et, sonra BFS, DFS və A* alqoritmləri ilə nəticəni müqayisə et.',levelLabel:'Səviyyə',easy:'Asan (9×9)',medium:'Orta (13×13)',hard:'Çətin (17×17)',newMaze:'↻ Yeni labirint',resetBtn:'Sıfırla',startLegend:'Başlanğıc',goalLegend:'Finiş',wallLegend:'Divar',seenLegend:'Axtarılan',pathLegend:'Tapılan yol',introMessage:'Gəmini ox düymələri və ya aşağıdakı idarəetmə ilə finişə çatdır.',testTitle:'Alqoritm sınağı',testDescription:'Öz yolunu tap, sonra kompüterin eyni problemi necə həll etdiyini gör.',modeTitle:'OYUN / İNTERAKTİV VİZUALİZASİYA',stepsLabel:'Sənin addımların',optimalLabel:'Optimal məsafə',exploredLabel:'Yoxlanan xanalar',routeLabel:'Alqoritmin yolu',algorithmLabel:'Alqoritm',solveBtn:'▶ Alqoritmi göstər',compareBtn:'⚖ Müqayisə et',howTitle:'Necə oynanır?',how1:'Başlanğıcdan ⭐ finişə get.',how2:'Ox düymələri, WASD və ya ekrandakı idarəetmədən istifadə et.',how3:'Alqoritm seç və axtarış prosesini izlə.',how4:'Yoxlanan xanaların və yol uzunluğunun fərqini müqayisə et.',academicTitle:'Akademik tərəfi',academicBody:'Mövzular: qraf nəzəriyyəsi, BFS, DFS, A*, heuristika, verilənlər strukturları, alqoritmik mürəkkəblik və insan–kompüter qarşılıqlı əlaqəsi.',noServer:'Heç bir kitabxana və server tələb olunmur.',footerMsg:'Bu oyunu şəxsi GitHub Pages saytında yayımlaya bilərsən.',tip:'<strong>İpucu:</strong> BFS ən qısa yolu təmin edir. DFS hər zaman ən qısa yolu tapmır. A* isə Manhetten məsafəsi ilə istiqamətlənir.',tipReset:'<strong>İpucu:</strong> BFS və A* ən qısa yolu tapır; DFS-in yolu daha uzun ola bilər.',ready:'Labirint hazırdır. ⭐ işarəsinə çatmağa çalış!',win:(steps,opt)=>`🎉 Təbriklər! ${steps} addımda çatdın. Ən qısa yol ${opt} addımdır.`,searching:type=>`${type.toUpperCase()} axtarış aparır…`,solved:(type,len,n)=>`${type.toUpperCase()} yolu tapdı: ${len} addım, ${n} yoxlanan xana.`,result:'Nəticə:',dfsResult:'DFS dərinliyə doğru axtarır; ən qısa yolu zəmanət vermir.',bfsResult:'BFS dalğa şəklində axtarır və çəkisiz qrafda ən qısa yolu tapır.',astarResult:'A* g(n)+h(n) əsasında seçim edir; h(n) burada Manhetten məsafəsidir.',comparison:'Alqoritmlərin müqayisəsi',stepUnit:'addım',cellUnit:'xana',conclusion:'Yekun:',conclusionBody:'BFS və A* optimaldır; A* adətən daha az xana yoxlayır. Nəticələr labirintə görə dəyişir.',compared:'3 alqoritmin nəticəsi hesablandı. Yeni labirintlə təcrübəni təkrarla!',boardLabel:'Labirint oyun lövhəsi',up:'Yuxarı',down:'Aşağı',left:'Sol',right:'Sağ',wallTitle:'Divar',location:(r,c)=>`Sətir ${r+1}, sütun ${c+1}`},
@@ -50,7 +135,7 @@ let experiment=null, activeMetric='visited';
 let lang='az', messageState={type:'ready'};
 const tr=(key,...args)=>{const x=translations[lang][key];return typeof x==='function'?x(...args):x};
 function setMessage(type,...args){messageState={type,args};$('message').textContent=tr(type,...args)}
-function switchLanguage(next){lang=next;document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=tr(el.dataset.i18n)});document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',tr(el.dataset.i18nAria)));$('report').innerHTML=reportState();setMessage(messageState.type,...(messageState.args||[]));renderResearch();render();}
+function switchLanguage(next){lang=next;document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=tr(el.dataset.i18n)});document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',tr(el.dataset.i18nAria)));$('report').innerHTML=reportState();setMessage(messageState.type,...(messageState.args||[]));renderResearch();renderPlayerResearch();render();}
 let reportKind='tipReset',reportData=null;
 function reportState(){if(reportKind==='tipReset')return tr('tipReset');if(reportKind==='solve'){const type=reportData;return '<strong>'+tr('result')+'</strong> '+tr(type+'Result')};if(reportKind==='compare'){const [b,d,a]=reportData;const fmt=(name,r)=>`${name}: ${r.path.length-1} ${tr('stepUnit')} / ${r.order.length} ${tr('cellUnit')}`;return '<strong>'+tr('comparison')+'</strong><br>'+fmt('BFS',b)+'<br>'+fmt('DFS',d)+'<br>'+fmt('A*',a)+'<br><br><strong>'+tr('conclusion')+'</strong> '+tr('conclusionBody')};return tr('tip')}
 $('language').addEventListener('change',e=>switchLanguage(e.target.value));
@@ -66,8 +151,8 @@ function search(type){const s=key(...start),g=key(...goal),prev=new Map([[s,null
 function render(){const board=$('board');board.style.gridTemplateColumns=`repeat(${N}, minmax(0, 1fr))`;board.innerHTML='';let frag=document.createDocumentFragment();for(let r=0;r<N;r++)for(let c=0;c<N;c++){const k=key(r,c),button=document.createElement('div');button.className='cell'+(grid[r][c]?' wall':'')+(showSeen.has(k)?' visited':'')+(showPath.has(k)?' path':'')+(r===goal[0]&&c===goal[1]?' goal':'')+(r===pos[0]&&c===pos[1]?' player':'');if(r===pos[0]&&c===pos[1])button.innerHTML='<span aria-hidden="true">🚀</span>';else if(r===goal[0]&&c===goal[1])button.innerHTML='<span aria-hidden="true">⭐</span>';button.title=grid[r][c]?tr('wallTitle'):tr('location',r,c);frag.appendChild(button)}board.appendChild(frag)}
 function updateStats(){ $('steps').textContent=steps;$('optimal').textContent=search('bfs').path.length-1;}
 function clearVisual(){runToken++;busy=false;showSeen.clear();showPath.clear();lastSolved=null;$('explored').textContent='—';$('route').textContent='—';reportKind='tipReset';reportData=null;$('report').innerHTML=reportState();}
-function reset(full){clearVisual();if(full){experiment=null;renderResearch();makeMaze(Number($('level').value==='easy'?9:$('level').value==='hard'?17:13));}pos=[...start];steps=0;finished=false;updateStats();render();setMessage('ready');}
-function move(dr,dc){if(busy||finished)return;const nr=pos[0]+dr,nc=pos[1]+dc;if(nr<0||nc<0||nr>=N||nc>=N||grid[nr][nc])return;pos=[nr,nc];steps++;$('steps').textContent=steps;render();if(nr===goal[0]&&nc===goal[1]){finished=true;const opt=search('bfs').path.length-1;setMessage('win',steps,opt)}}
+function reset(full){clearVisual();if(full){experiment=null;renderResearch();makeMaze(Number($('level').value==='easy'?9:$('level').value==='hard'?17:13));}pos=[...start];steps=0;finished=false;playerStartedAt=null;completedPlayerRun=null;renderPlayerResearch();updateStats();render();setMessage('ready');}
+function move(dr,dc){if(busy||finished)return;const nr=pos[0]+dr,nc=pos[1]+dc;if(nr<0||nc<0||nr>=N||nc>=N||grid[nr][nc])return;if(playerStartedAt===null)playerStartedAt=performance.now();pos=[nr,nc];steps++;$('steps').textContent=steps;render();if(nr===goal[0]&&nc===goal[1]){finished=true;const opt=search('bfs').path.length-1;completedPlayerRun={maze_size:N,player_steps:steps,optimal_steps:opt,elapsed_seconds:Math.max(0,Math.round((performance.now()-playerStartedAt)/1000))};renderPlayerResearch();setMessage('win',steps,opt)}}
 const movement={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1],w:[-1,0],s:[1,0],a:[0,-1],d:[0,1]};document.addEventListener('keydown',e=>{let delta=movement[e.key];if(!delta||['SELECT','BUTTON','INPUT'].includes(document.activeElement.tagName))return;e.preventDefault();move(...delta)});document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{const d={up:[-1,0],down:[1,0],left:[0,-1],right:[0,1]}[b.dataset.dir];move(...d)}));
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 $('solve').addEventListener('click',async()=>{if(busy)return;clearVisual();busy=true;const token=++runToken,type=$('algorithm').value,out=search(type);lastSolved={type,...out};setMessage('searching',type);for(let i=0;i<out.order.length;i++){if(runToken!==token)return;showSeen.add(out.order[i]);if(i%Math.max(1,Math.floor(N/7))===0){render();await sleep(23)}}for(let i=0;i<out.path.length;i++){if(runToken!==token)return;showPath.add(out.path[i]);if(i%2===0){render();await sleep(30)}}busy=false;render();$('explored').textContent=out.order.length;$('route').textContent=out.path.length-1;setMessage('solved',type,out.path.length-1,out.order.length);reportKind='solve';reportData=type;$('report').innerHTML=reportState();});
@@ -161,6 +246,6 @@ $('runBatch').addEventListener('click',runBatch);$('downloadCsv').addEventListen
 $('language').addEventListener('change',()=>{renderBatch();if(batchData.length)$('batchStatus').textContent=bt('complete',batchConfig.count)});
 renderBatch();
 
-$('new').addEventListener('click',()=>reset(true));$('level').addEventListener('change',()=>reset(true));$('reset').addEventListener('click',()=>reset(false));reset(true);switchLanguage('az');$('language').value='az';
+$('new').addEventListener('click',()=>reset(true));$('level').addEventListener('change',()=>reset(true));$('reset').addEventListener('click',()=>reset(false));reset(true);switchLanguage('az');$('language').value='az';renderPlayerResearch();
 })();
 </script></body></html>
