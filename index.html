@@ -60,7 +60,7 @@ const $=id=>document.getElementById(id);let grid=[],N=13,start=[1,1],goal=[11,11
 // The Edge Function currently requires Verify JWT with legacy secret = ON.
 // Public anon keys cannot prevent forged submissions; study data remains unverified.
 const PLAYER_RESEARCH_CONFIG = Object.freeze({
-  enabled: true, // Set true ONLY after SQL + function deployment and supervised tests.
+  enabled: false, // Set true ONLY after SQL + function deployment and supervised tests.
   functionUrl: "https://jcflftbeiergujcqmuow.supabase.co/functions/v1/submit-game-result",
   anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjZmxmdGJlaWVyZ3VqY3FtdW93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUyNjU3NDgsImV4cCI6MjExMDg0MTc0OH0.JiSYjanTonMovSYGGfZFTLkNHghYcrhgZ_eUiLaoheQ"
 });
