@@ -12,6 +12,11 @@
 .batch{margin-top:20px}.batch h2{font-size:23px;margin:0 0 6px}.batch-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.batch-controls label{display:grid;gap:5px}.batch input{width:140px;background:#1c2f4c;color:var(--text);border:1px solid #385274;border-radius:9px;padding:10px;font:inherit}.batch table{width:100%;border-collapse:collapse;font-size:13px}.batch th,.batch td{padding:10px;border-bottom:1px solid #32425a;text-align:left}.batch th{color:#aecbf9}.batch .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}.batch .summary .stat b{font-size:18px}.batch .status{color:var(--green);min-height:25px}.batch .small{font-size:12px;color:var(--muted)}@media(max-width:650px){.batch .summary{grid-template-columns:1fr}.batch th,.batch td{padding:7px 5px;font-size:12px}}
 
 .player-research{margin-top:20px}.player-research h2{margin:0 0 7px;font-size:23px}.player-research .privacy{padding:14px;background:#0b182b;border:1px solid #294663;border-radius:12px;margin:14px 0}.player-research label.optin{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text)}.player-research input[type=checkbox]{margin-top:4px;width:18px;height:18px;flex-shrink:0;accent-color:#5de2b1}.player-research .status{min-height:24px;color:#bcd6f4}.player-research .status.warn{color:#ffd46c}.player-research .mini{font-size:12px;color:var(--muted)}
+.research-gate{border:1px solid #327d83;background:linear-gradient(115deg,#102a3a,#101c30);border-radius:16px;padding:18px;margin:16px 0 22px}
+.research-gate h2{margin:0 0 8px;font-size:20px}.research-gate p{margin:7px 0 12px;font-size:14px;line-height:1.55}
+.research-gate .controls{margin-bottom:7px}.research-gate .gate-note{font-size:12px;color:#bfcee6;margin:8px 0 0}
+.research-gate[hidden],button[hidden]{display:none!important}
+
 
 /* iOS Safari: prevent double-tap zoom on gameplay controls while preserving pinch zoom. */
 button[data-dir], button[data-dir] *, .board, .board * {
@@ -28,7 +33,13 @@ button[data-dir] {
 </style>
 </head>
 <body><main class="wrap">
-<header><div><div class="eyebrow">COMPUTER SCIENCE × GAME DESIGN</div><h1>🧠 Algorithm Lab</h1><p><span data-i18n="subtitle">Labirinti həll et, sonra BFS, DFS və A* alqoritmləri ilə nəticəni müqayisə et.</span></p></div><span class="tag">PORTFOLIO PROJECT · v5.1 (RESEARCH TEST)</span><div class="lang-switch"><label for="language" id="langLabel">Dil / Language</label><select id="language" aria-label="Language"><option value="az">🇦🇿 Azərbaycan</option><option value="en">🇬🇧 English</option></select></div></header>
+<header><div><div class="eyebrow">COMPUTER SCIENCE × GAME DESIGN</div><h1>🧠 Algorithm Lab</h1><p><span data-i18n="subtitle">Labirinti həll et, sonra BFS, DFS və A* alqoritmləri ilə nəticəni müqayisə et.</span></p></div><span class="tag">PORTFOLIO PROJECT · v5.3 (3-RESULT LIMIT)</span><div class="lang-switch"><label for="language" id="langLabel">Dil / Language</label><select id="language" aria-label="Language"><option value="az">🇦🇿 Azərbaycan</option><option value="en">🇬🇧 English</option></select></div></header>
+<section class="research-gate" id="researchGate" aria-labelledby="researchGateTitle">
+  <h2 id="researchGateTitle">Tədqiqatda iştirak seçimi</h2>
+  <p id="researchGateBody">Razılıq versən, yalnız ilk 3 tamamlanmış labirintinin nəticəsi avtomatik saxlanacaq. Sonrakı labirintləri istədiyin qədər oynaya bilərsən — nəticələri göndərilməyəcək. Təkrar göndərişləri məhdudlaşdırmaq üçün bu brauzerdə təsadüfi anonim kod saxlanır. Ad və e-poçt istənilmir.</p>
+  <div class="controls"><button id="researchJoin" type="button" class="success">Razıyam — avtomatik paylaş</button><button id="researchPlayOnly" type="button">Yalnız oynamaq istəyirəm</button></div>
+  <p class="gate-note" id="researchGateNote">Bu seçim bu brauzerdə yadda qalır və istənilən vaxt dəyişdirilə bilər. Yetkinlik yaşına çatmayanlar tədqiqat iştirakından əvvəl valideyn/qəyyum və ya məktəb qaydalarına əməl etməlidir.</p>
+</section>
 <div class="layout"><section class="panel"><div class="controls"><label for="level"><span data-i18n="levelLabel">Səviyyə</span></label><select id="level"><option value="easy"><span data-i18n="easy">Asan (9×9)</span></option><option value="medium" selected><span data-i18n="medium">Orta (13×13)</span></option><option value="hard"><span data-i18n="hard">Çətin (17×17)</span></option></select><button id="new"><span data-i18n="newMaze">↻ Yeni labirint</span></button><button id="reset"><span data-i18n="resetBtn">Sıfırla</span></button></div><div class="board" id="board" role="group" aria-label="Labirint oyun lövhəsi" data-i18n-aria="boardLabel"></div><div class="legend"><span><i class="dot" style="background:#408aff"></i><span data-i18n="startLegend">Başlanğıc</span></span><span><i class="dot" style="background:#d8a44b"></i><span data-i18n="goalLegend">Finiş</span></span><span><i class="dot" style="background:#0b1627;border:1px solid #4c6587"></i><span data-i18n="wallLegend">Divar</span></span><span><i class="dot" style="background:#245779"></i><span data-i18n="seenLegend">Axtarılan</span></span><span><i class="dot" style="background:#2c9079"></i><span data-i18n="pathLegend">Tapılan yol</span></span></div><div class="msg" id="message" role="status" aria-live="polite"><span data-i18n="introMessage">Gəmini ox düymələri və ya aşağıdakı idarəetmə ilə finişə çatdır.</span></div><div class="controls" style="justify-content:center;margin-top:8px"><button data-dir="up" aria-label="Yuxarı" data-i18n-aria="up">↑</button><button data-dir="left" aria-label="Sol" data-i18n-aria="left">←</button><button data-dir="down" aria-label="Aşağı" data-i18n-aria="down">↓</button><button data-dir="right" aria-label="Sağ" data-i18n-aria="right">→</button></div></section>
 <aside class="panel side"><h2><span data-i18n="testTitle">Alqoritm sınağı</span></h2><p><span data-i18n="testDescription">Öz yolunu tap, sonra kompüterin eyni problemi necə həll etdiyini gör.</span></p><div class="mode"><span data-i18n="modeTitle">OYUN / İNTERAKTİV VİZUALİZASİYA</span></div><div class="stats"><div class="stat"><small><span data-i18n="stepsLabel">Sənin addımların</span></small><b id="steps">0</b></div><div class="stat"><small><span data-i18n="optimalLabel">Optimal məsafə</span></small><b id="optimal">—</b></div><div class="stat"><small><span data-i18n="exploredLabel">Yoxlanan xanalar</span></small><b id="explored">—</b></div><div class="stat"><small><span data-i18n="routeLabel">Alqoritmin yolu</span></small><b id="route">—</b></div></div><div class="controls"><label for="algorithm"><span data-i18n="algorithmLabel">Alqoritm</span></label><select id="algorithm"><option value="bfs">BFS</option><option value="dfs">DFS</option><option value="astar">A* (A-star)</option></select></div><div class="controls"><button class="primary" id="solve"><span data-i18n="solveBtn">▶ Alqoritmi göstər</span></button><button class="success" id="compare"><span data-i18n="compareBtn">⚖ Müqayisə et</span></button></div><div id="report" class="note"><span data-i18n="tip"><strong>İpucu:</strong> BFS ən qısa yolu təmin edir. DFS hər zaman ən qısa yolu tapmır. A* isə Manhetten məsafəsi ilə istiqamətlənir.</span></div><h3><span data-i18n="howTitle">Necə oynanır?</span></h3><ol><li><span data-i18n="how1">Başlanğıcdan ⭐ finişə get.</span></li><li><span data-i18n="how2">Ox düymələri, WASD və ya ekrandakı idarəetmədən istifadə et.</span></li><li><span data-i18n="how3">Alqoritm seç və axtarış prosesini izlә.</span></li><li><span data-i18n="how4">Yoxlanan xanaların və yol uzunluğunun fərqini müqayisə et.</span></li></ol><h3><span data-i18n="academicTitle">Akademik tərəfi</span></h3><p class="note"><span data-i18n="academicBody">Mövzular: qraf nəzəriyyəsi, BFS, DFS, A*, heuristika, verilənlər strukturları, alqoritmik mürəkkəblik və insan–kompüter qarşılıqlı əlaqəsi.</span></p></aside></div>
 <section class="panel research" id="research"><div class="controls" style="justify-content:space-between;margin-bottom:0"><div><div class="eyebrow" data-research="eyebrow">RESEARCH MODE · EXPERIMENT</div><h2 data-research="heading">Scientific Performance Analysis</h2><p data-research="description">Compare all three algorithms on the same maze.</p></div><button id="runResearch" class="primary" data-research="run">Run experiment</button></div><div class="research-grid"><div><h3 data-research="chartTitle">Measured results</h3><div class="metric-tabs" role="group" aria-label="Chart metric"><button type="button" data-metric="visited" aria-pressed="true" data-research="visited">Explored cells</button><button type="button" data-metric="path" aria-pressed="false" data-research="path">Path length</button><button type="button" data-metric="time" aria-pressed="false" data-research="time">Runtime (ms)</button></div><div id="researchBars" aria-live="polite" class="empty">Run the experiment to see results.</div><p class="notes" data-research="chartNote">Bars show values from the current maze, not example data.</p></div><div><h3 data-research="tableTitle">Experimental data</h3><div style="overflow-x:auto"><table><thead><tr><th data-research="algo">Algorithm</th><th data-research="visitedShort">Cells</th><th data-research="pathShort">Steps</th><th data-research="timeShort">Time (ms)</th></tr></thead><tbody id="researchRows"><tr><td colspan="4" data-research="empty">No measurements yet.</td></tr></tbody></table></div><p class="notes" data-research="timeNote">Runtime is the median of 50 synchronous searches, excluding drawing and animation. Small times vary by device and browser.</p></div></div><details><summary data-research="complexityTitle">Algorithm complexity & methodology</summary><div class="research-grid"><div><h3>BFS</h3><p data-research="bfsInfo">Breadth-first search explores in layers. Time O(V+E), space O(V). Optimal for unweighted graphs.</p><h3>DFS</h3><p data-research="dfsInfo">Depth-first search follows a branch before backtracking. Time O(V+E), space O(V). Not necessarily optimal.</p></div><div><h3>A*</h3><p data-research="astarInfo">A* uses f(n)=g(n)+h(n) with Manhattan distance. Its worst-case time and space can grow exponentially with solution depth; performance depends on the heuristic and implementation.</p><p class="notes" data-research="methodInfo">The maze is a grid graph. Each walkable cell is a vertex and orthogonal moves are edges of cost 1. All algorithms receive the same maze; measurements are approximate and not a controlled benchmark. This implementation uses an array-backed priority queue for A* and an array queue for BFS.</p></div></div></details></section>
@@ -53,17 +64,17 @@ button[data-dir] {
 <p class="small" data-batch="caution">For a rigorous benchmark, repeat on multiple devices and report limitations. A single experiment is not proof that one algorithm is always fastest.</p>
 </section>
 <section class="panel player-research" id="playerResearch" aria-labelledby="playerResearchTitle">
-  <div class="eyebrow">PLAYER RESEARCH · v5.0</div>
+  <div class="eyebrow">PLAYER RESEARCH · AUTO SAVE</div>
   <h2 id="playerResearchTitle">İnsanların labirint həllini araşdırma / Player research</h2>
-  <p id="playerResearchInfo">Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.</p>
+  <p id="playerResearchInfo">Razılıq verən oyunçuların tamamlanmış labirint nəticələri avtomatik göndərilir. Ayrıca göndərmə düyməsi lazım deyil.</p>
   <div class="privacy">
-    <label class="optin"><input id="researchConsent" type="checkbox"><span id="consentText">İştirak etmək istəyirəm. Yalnız bu oyunun nəticəsini göndərməyə razıyam. Adım, e-poçtum və hesab məlumatlarım istənilmir.</span></label>
-    <p class="mini" id="privacyDetail">İştirak könüllüdür. Heç nə avtomatik göndərilmir. Paylaşmaq üçün əvvəl labirinti bitirməlisən. Nəticə yalnız razılıq verdikdən və yoxlanmış labirinti bitirdikdən sonra göndərilir.</p>
+    <label class="optin"><input id="researchConsent" type="checkbox"><span id="consentText">Tədqiqat üçün ilk 3 tamamlanmış labirintimin nəticələrinin avtomatik göndərilməsinə razıyam.</span></label>
+    <p class="mini" id="privacyDetail">Razılıq verən oyunçuların yalnız ilk 3 təsdiqlənmiş nəticəsi saxlanır. Eyni brauzerdə təkrarları məhdudlaşdırmaq üçün təsadüfi kod, serverdə isə onun hash-i və say saxlanır. Bu, unikal şəxsi təsdiqləmir. Ad və e-poçt istənilmir; texniki giriş logları ola bilər. Paylaşımı istənilən vaxt dayandıra bilərsən.</p>
     <p class="mini"><a href="https://github.com/rashadnabiyev009/algorithm-lab/blob/main/PRIVACY_AND_RESEARCH.md" target="_blank" rel="noopener noreferrer" style="color:#8ddde0">Tədqiqat və məxfilik məlumatları / Privacy &amp; research policy</a></p>
   </div>
-  <div class="controls"><button id="submitPlayerResult" class="success" disabled>Share completed result / Nəticəni göndər</button><button id="clearPlayerConsent" type="button">Clear choice / Seçimi sıfırla</button></div>
+  <div class="controls"><button id="submitPlayerResult" class="success" type="button" hidden>Göndərilməni təkrar yoxla / Retry</button><button id="clearPlayerConsent" type="button">Seçimi dəyiş / Change choice</button></div>
   <p id="playerResultPreview" class="mini">No completed game yet / Hələ oyun tamamlanmayıb.</p>
-  <p id="playerSubmitStatus" class="status warn" role="status" aria-live="polite">Tədqiqat toplama rejimi hələ bağlıdır — məlumat göndərilmir.</p>
+  <p id="playerSubmitStatus" class="status warn" role="status" aria-live="polite">İştirak seçimini gözləyir.</p>
 </section>
 <footer>Built with <span class="credit">HTML · CSS · JavaScript</span> — <span data-i18n="noServer">BFS, DFS, A* və Research Mode brauzerdə işləyir.</span> <span id="footerText"><span data-i18n="footerMsg">Bu oyunu şəxsi GitHub Pages saytında yayımlaya bilərsən.</span></span> · <a href="research.html" style="color:#91efd1">Research Dashboard</a></footer>
 </main><script>
@@ -81,104 +92,260 @@ const canSubmitToServer = () =>
   PLAYER_RESEARCH_CONFIG.enabled &&
   PLAYER_RESEARCH_CONFIG.anonKey.startsWith('eyJ') &&
   PLAYER_RESEARCH_CONFIG.anonKey.split('.').length === 3;
+// Consent and a random, non-identifying browser token are stored locally.
+// This cannot enforce '3 per human' across devices or cleared storage.
+const RESEARCH_PREF_KEY='algorithm-lab.research-choice.v3';
+const RESEARCH_PENDING_KEY='algorithm-lab.pending-submissions.v3';
+const RESEARCH_PARTICIPANT_ID_KEY='algorithm-lab.anonymous-browser-id.v3';
+const RESEARCH_SAVED_COUNT_KEY='algorithm-lab.saved-count.v3';
+let researchSavedCount=0;
+try {researchSavedCount=Math.max(0,Math.min(3,Number(localStorage.getItem(RESEARCH_SAVED_COUNT_KEY)||0)||0));}catch{}
+let researchLimitReached=researchSavedCount>=3;
+function updateResearchCount(count){
+  if(!Number.isInteger(count)||count<0||count>3)return;
+  // The server is authoritative. The local count only avoids redundant calls.
+  researchSavedCount=count;
+  researchLimitReached=count>=3;
+  try{localStorage.setItem(RESEARCH_SAVED_COUNT_KEY,String(count));}catch{}
+}
+function anonymousBrowserId(){
+  try{
+    let id=localStorage.getItem(RESEARCH_PARTICIPANT_ID_KEY);
+    const valid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if(!id||!valid.test(id)){
+      id=crypto.randomUUID();
+      localStorage.setItem(RESEARCH_PARTICIPANT_ID_KEY,id);
+      if(localStorage.getItem(RESEARCH_PARTICIPANT_ID_KEY)!==id)return null;
+    }
+    return id;
+  }catch{return null;}
+}
+let researchChoice=null;
+try { const saved=localStorage.getItem(RESEARCH_PREF_KEY); if(saved==='yes'||saved==='no')researchChoice=saved; }catch{}
 let researchSession=null;
 let researchSessionLoading=false;
 let researchEpoch=0;
 let movementProof='';
-let playerStartedAt = null;
-let completedPlayerRun = null;
-let playerSubmitBusy = false;
-const playerStrings = {
-  az: {
-    heading: 'İnsanların labirint həllini araşdırma',
-    info: 'Oyunu bitirəndə addım sayın, ən qısa yol və vaxt ölçüsü könüllü tədqiqat nəticəsi kimi paylaşıla bilər.',
-    consent: 'İştirak etmək istəyirəm. Yalnız bu oyunun nəticəsini göndərməyə razıyam. Adım, e-poçtum və hesab məlumatlarım istənilmir.',
-    privacy: 'İştirak könüllüdür. Heç nə avtomatik göndərilmir. Yalnız oyunu tamamlayıb təsdiqlədikdə addım, optimal yol, müddət və labirint ölçüsü göndərilir. Server provayderi texniki sorğu qeydləri saxlaya bilər. Nəticələr yoxlanılmamış tədqiqat məlumatıdır.',
-    send: 'Nəticəni göndər', clear: 'Seçimi sıfırla',
-    empty: 'Hələ oyun tamamlanmayıb.',
-    result: r => `Tamamlanmış labirint: ${r.maze_size}×${r.maze_size}, ${r.player_steps} addım, ən qısa yol ${r.optimal_steps} addım, ${r.elapsed_seconds} saniyə.`,
-    disabled: 'Tədqiqat sınaq rejimində bağlıdır. SQL və Edge Function yoxlanandan sonra aktivləşdir.',
-    noConsent: 'Göndərmək üçün könüllü razılığı seç.',
-    noFinish: 'Əvvəl labirinti tamamla.',
-    sending: 'Nəticə göndərilir…', success: 'Nəticə serverdə saxlanıldı.', failed: 'Göndərilmədi. Yenidən cəhd edə bilərsən.'
+let playerStartedAt=null;
+let completedPlayerRun=null;
+let playerSubmitBusy=false;
+let currentSubmitController=null;
+let submissionQueue=[];
+let manualRetryNeeded=false;
+try{
+  const stored=JSON.parse(localStorage.getItem(RESEARCH_PENDING_KEY)||'[]');
+  if(Array.isArray(stored)) submissionQueue=stored.filter(x=>
+    x && typeof x==='object' && typeof x.queuedAt==='number' &&
+    Date.now()-x.queuedAt<25*60*1000 && Date.now()>=x.queuedAt &&
+    x.payload && typeof x.payload.run_id==='string' && typeof x.payload.moves==='string' &&
+    /^[UDLR]{1,5000}$/.test(x.payload.moves) && [9,13,17].includes(x.payload.maze_size)
+  ).slice(0,12);
+}catch{}
+function saveQueue(){try{if(submissionQueue.length)localStorage.setItem(RESEARCH_PENDING_KEY,JSON.stringify(submissionQueue));else localStorage.removeItem(RESEARCH_PENDING_KEY);}catch{}}
+function researchStatus(message){$('playerSubmitStatus').textContent=message;}
+const playerStrings={
+  az:{
+    heading:'İnsanların labirint həllini araşdırma',
+    info:'Sonsuz labirint oynaya bilərsən. Razılıq versən, yalnız ilk 3 təsdiqlənmiş nəticən avtomatik saxlanacaq.',
+    consent:'İlk 3 tamamlanmış oyunumun nəticəsinin tədqiqat üçün avtomatik göndərilməsinə razıyam.',
+    privacy:'İlk 3 təsdiqlənmiş labirint nəticəsi saxlanır. Təkrarları məhdudlaşdırmaq üçün bu brauzerdə təsadüfi anonim kod, serverdə isə onun hash-i və saxlanmış nəticələrin sayı olur. Bu kod konkret şəxsi təsdiqləmir. Ad/e-poçt tələb olunmur; texniki loglar ola bilər. Paylaşımı istənilən vaxt dayandıra bilərsən.',
+    retry:'Göndərilməni yenidən yoxla',clear:'Seçimi dəyiş',empty:'Hələ oyun tamamlanmayıb.',
+    result:r=>`Tamamlanmış labirint: ${r.maze_size}×${r.maze_size}, ${r.player_steps} addım, ən qısa yol ${r.optimal_steps} addım, ${r.elapsed_seconds} saniyə.`,
+    disabled:'Tədqiqat serveri hazır deyil. Məlumat göndərilmir.',
+    chosenYes:'Tədqiqat aktivdir. İlk 3 təsdiqlənmiş oyun avtomatik saxlanır.',
+    chosenNo:'Yalnız oyun rejimidir. Nəticə göndərilmir.',
+    limitReached:'İlk 3 nəticən saxlanılıb (3/3). İndi limitsiz oyna — yeni nəticələr serverə göndərilmir.',
+    storageUnavailable:'Bu brauzerdə anonim iştirak kodu yadda saxlanmır. Oyun işləyir, nəticə göndərilmir.',
+    countStatus:n=>`Tədqiqat nəticəsi: ${n}/3 saxlanılıb.`,
+    choose:'Başlamaq üçün yuxarıda iştirak seçimini et.',
+    sending:'Tamamlanmış nəticə avtomatik göndərilir…',
+    success:'Nəticə avtomatik serverdə saxlanıldı.',
+    failed:'İnternet/server problemi: nəticə hələ saxlanıldığı təsdiqlənməyib. Yenidən yoxlaya bilərsən.',
+    rejected:'Server bu oyunu qəbul etmədi (məsələn, sessiya vaxtı bitib). Növbəti oyun avtomatik göndəriləcək.',
+    starting:'Tədqiqat labirinti hazırlanır…',
+    ready:'Tədqiqat labirinti hazırdır. Bitirdikdə nəticə avtomatik göndəriləcək.',
+    offline:'Serverə qoşulmaq mümkün olmadı. Adi oyun işləyir, bu oyunun nəticəsi göndərilməyəcək.',
+    gateTitle:'Tədqiqatda iştirak seçimi',
+    gateBody:'Razılıq versən, ilk 3 tamamlanmış labirintinin nəticəsi avtomatik göndərilir. Daha sonra sonsuz oynaya bilərsən və əlavə nəticə göndərilmir. Sayı məhdudlaşdırmaq üçün brauzerdə təsadüfi kod, serverdə isə onun hash-i saxlanır. Heç nə paylaşmadan oynamaq da mümkündür.',
+    gateJoin:'Razıyam — avtomatik paylaş',gateDecline:'Yalnız oynamaq istəyirəm',
+    gateNote:'Razılıq və anonim say bu brauzerdə yadda qalır. Səhifə və ya brauzer dəyişəndə eyni insanı dəqiq tanımaq olmur. Yetkinlik yaşına çatmayanlar üçün uyğun valideyn/məktəb razılığı lazımdır.'
   },
-  en: {
-    heading: 'Player pathfinding research',
-    info: 'After finishing the maze, you may voluntarily share your steps, shortest path length, and completion time for research.',
-    consent: 'I choose to participate. I agree to submit this game result only. No name, email, or account details are requested.',
-    privacy: 'Participation is optional. Nothing is sent automatically. Only after finishing and opting in are maze size, step count, shortest route and elapsed time sent. The hosting provider may retain technical request logs. Results are unverified research data.',
-    send: 'Share game result', clear: 'Clear choice',
-    empty: 'No completed game yet.',
-    result: r => `Completed: ${r.maze_size}×${r.maze_size}, ${r.player_steps} steps, shortest route ${r.optimal_steps} steps, ${r.elapsed_seconds} seconds.`,
-    disabled: 'Research collection is disabled until server setup and testing are complete.',
-    noConsent: 'Choose the voluntary consent box first.',
-    noFinish: 'Finish the maze first.',
-    sending: 'Sending result…', success: 'Result saved by server.', failed: 'Could not send result. You may try again.'
+  en:{
+    heading:'Player pathfinding research',
+    info:'Play unlimited mazes. If you opt in, only your first 3 verified completions are saved automatically.',
+    consent:'I agree to automatically share up to my first 3 completed maze results for research.',
+    privacy:'Only the first 3 verified results are stored. A random browser token is kept locally, and its hash plus the count are stored on the server to limit repeats. This does not verify unique people. No name or email is needed; infrastructure may keep technical logs. You can stop future sharing.',
+    retry:'Retry sending',clear:'Change choice',empty:'No completed game yet.',
+    result:r=>`Completed: ${r.maze_size}×${r.maze_size}, ${r.player_steps} steps, BFS optimal ${r.optimal_steps} steps, ${r.elapsed_seconds} seconds.`,
+    disabled:'The research server is not configured. No results will be sent.',
+    chosenYes:'Research sharing is on. Only the first 3 verified completions are saved.',
+    chosenNo:'Play-only mode. No results will be submitted.',
+    limitReached:'Your first 3 results are saved (3/3). Keep playing freely — no more submissions.',
+    storageUnavailable:'This browser cannot remember an anonymous research token. You may keep playing, but results will not be sent.',
+    countStatus:n=>`Research submissions: ${n}/3 saved.`,
+    choose:'Choose a participation option above to start playing.',
+    sending:'Automatically submitting completed result…',
+    success:'Result automatically saved on the server.',
+    failed:'Network/server problem: save not confirmed. You can retry.',
+    rejected:'The server did not accept this run (for example, it expired). The next completed maze will submit automatically.',
+    starting:'Preparing research maze…',
+    ready:'Research maze ready. Finishing it submits automatically.',
+    offline:'Server unavailable. Normal game works, but this run will not be submitted.',
+    gateTitle:'Research participation choice',
+    gateBody:'Opt in to automatically submit up to 3 completed mazes. After that you may play unlimited games without more submissions. A random browser token and its server-side hash help limit repeats. You may also play without sharing.',
+    gateJoin:'I agree — share automatically',gateDecline:'Play without sharing',
+    gateNote:'Choice and anonymous counter are remembered in this browser. This cannot guarantee 3 per person across devices. Minors need appropriate parent/guardian or school permission.'
   }
 };
-function renderPlayerResearch() {
+function renderPlayerResearch(){
   const t=playerStrings[lang];
   $('playerResearchTitle').textContent=t.heading;
-  $('playerResearchInfo').textContent=t.info;
+  $('playerResearchInfo').textContent=t.info + (researchChoice==='yes' ? ' '+t.countStatus(researchSavedCount) : '');
   $('consentText').textContent=t.consent;
   $('privacyDetail').textContent=t.privacy;
-  $('submitPlayerResult').textContent=t.send;
+  $('submitPlayerResult').textContent=t.retry;
   $('clearPlayerConsent').textContent=t.clear;
   $('playerResultPreview').textContent=completedPlayerRun?t.result(completedPlayerRun):t.empty;
-  $('submitPlayerResult').disabled=!canSubmitToServer()||!researchSession||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy||researchSessionLoading;
-  if(!canSubmitToServer()) $('playerSubmitStatus').textContent=t.disabled;
+  $('researchGateTitle').textContent=t.gateTitle;
+  $('researchGateBody').textContent=t.gateBody;
+  $('researchJoin').textContent=t.gateJoin;
+  $('researchPlayOnly').textContent=t.gateDecline;
+  $('researchGateNote').textContent=t.gateNote;
+  $('researchGate').hidden=researchChoice!==null;
+  $('researchConsent').checked=researchChoice==='yes';
+  $('submitPlayerResult').hidden=!manualRetryNeeded || !submissionQueue.length;
+  $('submitPlayerResult').disabled=playerSubmitBusy;
+  if(!canSubmitToServer())researchStatus(t.disabled);
+  else if(researchChoice===null)researchStatus(t.choose);
+  else if(researchChoice==='no')researchStatus(t.chosenNo);
+  else if(researchLimitReached)researchStatus(t.limitReached);
+  else if(!researchSessionLoading && !playerSubmitBusy && !manualRetryNeeded && !completedPlayerRun && !submissionQueue.length){
+    const current=$('playerSubmitStatus').textContent;
+    if(!current || current===t.chosenNo || current===t.choose)researchStatus(t.chosenYes);
+  }
 }
-$('researchConsent').addEventListener('change',()=>{
-  if($('researchConsent').checked && canSubmitToServer()) beginResearchRun();
-  else { researchEpoch++;researchSessionLoading=false;researchSession=null;movementProof='';renderPlayerResearch(); }
+function setResearchChoice(choice){
+  if(choice!=='yes'&&choice!=='no')return;
+  const wasYes=researchChoice==='yes';
+  researchChoice=choice;
+  try{localStorage.setItem(RESEARCH_PREF_KEY,choice);}catch{}
+  if(choice==='no'){
+    if(currentSubmitController)currentSubmitController.abort();
+    submissionQueue=[];manualRetryNeeded=false;saveQueue();
+  }
+  reset(true); // New local maze or verified server challenge depending on choice.
+  renderPlayerResearch();
+  if(choice==='yes' && !wasYes && submissionQueue.length)void flushSubmissionQueue();
+}
+$('researchJoin').addEventListener('click',()=>setResearchChoice('yes'));
+$('researchPlayOnly').addEventListener('click',()=>setResearchChoice('no'));
+$('researchConsent').addEventListener('change',()=>setResearchChoice($('researchConsent').checked?'yes':'no'));
+$('clearPlayerConsent').addEventListener('click',()=>{
+  if(currentSubmitController)currentSubmitController.abort();
+  researchChoice=null;try{localStorage.removeItem(RESEARCH_PREF_KEY);}catch{}
+  researchEpoch++;researchSessionLoading=false;researchSession=null;movementProof='';
+  submissionQueue=[];manualRetryNeeded=false;saveQueue();
+  renderPlayerResearch();$('researchGate').scrollIntoView({block:'start',behavior:'smooth'});
 });
 async function beginResearchRun(){
-  if(!canSubmitToServer()||!$('researchConsent').checked)return;
+  if(!canSubmitToServer()||researchChoice!=='yes')return;
+  if(researchLimitReached){researchStatus(playerStrings[lang].limitReached);return;}
+  const participantId=anonymousBrowserId();
+  if(!participantId){researchStatus(playerStrings[lang].storageUnavailable);return;}
   const myEpoch=++researchEpoch;
   researchSessionLoading=true;researchSession=null;completedPlayerRun=null;movementProof='';
-  $('playerSubmitStatus').textContent=lang==='az'?'Tədqiqat labirinti hazırlanır…':'Preparing research maze…';
+  researchStatus(playerStrings[lang].starting);
   renderPlayerResearch();
   try{
     const size=$('level').value==='easy'?9:$('level').value==='hard'?17:13;
     const res=await fetch(PLAYER_RESEARCH_CONFIG.functionUrl,{
       method:'POST',mode:'cors',
       headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.anonKey,'Authorization':'Bearer '+PLAYER_RESEARCH_CONFIG.anonKey},
-      body:JSON.stringify({action:'start',maze_size:size,consent:true})
+      body:JSON.stringify({action:'start',maze_size:size,consent:true,participant_id:participantId})
     });
     const challenge=await res.json();
+    if(myEpoch!==researchEpoch)return;
+    if(res.ok && challenge.research_limit_reached){
+      updateResearchCount(3);
+      researchStatus(playerStrings[lang].limitReached);
+      return;
+    }
     if(!res.ok||!challenge.success||!challenge.run_id||!Number.isInteger(challenge.maze_seed))throw Error('Start failed');
-    if(myEpoch!==researchEpoch||!$('researchConsent').checked||!canSubmitToServer()||size!==($('level').value==='easy'?9:$('level').value==='hard'?17:13))return;
+    if(Number.isInteger(challenge.saved_count))updateResearchCount(challenge.saved_count);
+    if(myEpoch!==researchEpoch||researchChoice!=='yes'||!canSubmitToServer()||size!==($('level').value==='easy'?9:$('level').value==='hard'?17:13))return;
     researchSession={id:challenge.run_id,seed:challenge.maze_seed};
     clearVisual();makeMaze(size,seedRandom(challenge.maze_seed));
     pos=[...start];steps=0;finished=false;playerStartedAt=null;movementProof='';
     updateStats();render();setMessage('ready');
-    $('playerSubmitStatus').textContent=lang==='az'?'Tədqiqat labirinti hazırdır. Oyunu bitir, sonra nəticəni göndər.':'Research maze ready. Finish it, then submit.';
+    researchStatus(playerStrings[lang].ready);
   }catch{
     if(myEpoch!==researchEpoch)return;
     researchSession=null;
-    $('playerSubmitStatus').textContent=lang==='az'?'Serverə qoşulmaq mümkün olmadı. Adi oyun işləyir; nəticə göndərilməyəcək.':'Server unavailable. Normal game works; no result can be submitted.';
+    researchStatus(playerStrings[lang].offline);
   }finally{if(myEpoch===researchEpoch){researchSessionLoading=false;renderPlayerResearch();}}
 }
-
-$('clearPlayerConsent').addEventListener('click',()=>{$('researchConsent').checked=false;renderPlayerResearch()});
-$('submitPlayerResult').addEventListener('click',async()=>{
-  if(!canSubmitToServer()||!researchSession||!completedPlayerRun||!$('researchConsent').checked||playerSubmitBusy)return;
-  playerSubmitBusy=true;renderPlayerResearch();
-  $('playerSubmitStatus').textContent=playerStrings[lang].sending;
-  try {
-    const response=await fetch(PLAYER_RESEARCH_CONFIG.functionUrl,{
-      method:'POST',mode:'cors',
-      headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.anonKey,'Authorization':'Bearer '+PLAYER_RESEARCH_CONFIG.anonKey},
-      body:JSON.stringify({action:'submit',run_id:researchSession.id,maze_size:completedPlayerRun.maze_size,moves:movementProof,elapsed_seconds:completedPlayerRun.elapsed_seconds,consent:true})
-    });
-    const result=await response.json();
-    if(!response.ok||!result.saved)throw new Error('Save failed');
-    $('playerSubmitStatus').textContent=playerStrings[lang].success;
-    completedPlayerRun=null;researchSession=null;movementProof='';
-    $('researchConsent').checked=false;
-  }catch(e){$('playerSubmitStatus').textContent=playerStrings[lang].failed}
-  finally{playerSubmitBusy=false;renderPlayerResearch()}
-});
+function enqueueCompletedResult(){
+  if(researchChoice!=='yes'||researchLimitReached||!researchSession||!completedPlayerRun||!movementProof)return;
+  const payload={action:'submit',run_id:researchSession.id,maze_size:completedPlayerRun.maze_size,
+    moves:movementProof,elapsed_seconds:completedPlayerRun.elapsed_seconds,consent:true};
+  if(!submissionQueue.some(x=>x.payload.run_id===payload.run_id)){
+    submissionQueue.push({payload,queuedAt:Date.now()});
+    saveQueue();
+  }
+  researchSession=null;
+  manualRetryNeeded=false;
+  void flushSubmissionQueue();
+}
+async function flushSubmissionQueue(){
+  if(playerSubmitBusy||researchChoice!=='yes'||researchLimitReached||!canSubmitToServer()||!submissionQueue.length)return;
+  playerSubmitBusy=true;manualRetryNeeded=false;
+  researchStatus(playerStrings[lang].sending);renderPlayerResearch();
+  try{
+    while(submissionQueue.length && researchChoice==='yes' && !researchLimitReached){
+      const item=submissionQueue[0];
+      if(Date.now()-item.queuedAt>25*60*1000){
+        submissionQueue.shift();saveQueue();researchStatus(playerStrings[lang].rejected);continue;
+      }
+      let saved=false,terminal=false,limitReturned=false,newCount=null;
+      for(let attempt=0;attempt<3 && researchChoice==='yes';attempt++){
+        try{
+          const controller=new AbortController();currentSubmitController=controller;
+          const response=await fetch(PLAYER_RESEARCH_CONFIG.functionUrl,{
+            method:'POST',mode:'cors',signal:controller.signal,
+            headers:{'Content-Type':'application/json','apikey':PLAYER_RESEARCH_CONFIG.anonKey,'Authorization':'Bearer '+PLAYER_RESEARCH_CONFIG.anonKey},
+            body:JSON.stringify(item.payload)
+          });
+          const result=await response.json().catch(()=>({}));
+          if(response.ok && result.saved){
+            saved=true;
+            newCount=Number.isInteger(result.saved_count)?result.saved_count:Math.min(3,researchSavedCount+1);
+            break;
+          }
+          if(response.ok && result.research_limit_reached){limitReturned=true;terminal=true;break;}
+          if(response.status===400||response.status===403||response.status===409){terminal=true;break;}
+          throw new Error('Server did not confirm save');
+        }catch(err){
+          if(researchChoice!=='yes')break;
+          if(attempt<2)await new Promise(r=>setTimeout(r,600*(attempt+1)));
+        }finally{currentSubmitController=null;}
+      }
+      if(researchChoice!=='yes')break;
+      if(saved){
+        submissionQueue.shift();saveQueue();updateResearchCount(newCount);
+        researchStatus(researchLimitReached?playerStrings[lang].limitReached:playerStrings[lang].success+' '+playerStrings[lang].countStatus(researchSavedCount));
+      }
+      else if(terminal){
+        submissionQueue.shift();saveQueue();
+        if(limitReturned){updateResearchCount(3);researchStatus(playerStrings[lang].limitReached);}
+        else researchStatus(playerStrings[lang].rejected);
+      }
+      else {manualRetryNeeded=true;researchStatus(playerStrings[lang].failed);break;}
+      if(researchLimitReached){submissionQueue=[];manualRetryNeeded=false;saveQueue();break;}
+    }
+  }finally{playerSubmitBusy=false;renderPlayerResearch();}
+}
+$('submitPlayerResult').addEventListener('click',()=>{manualRetryNeeded=false;void flushSubmissionQueue();});
+window.addEventListener('online',()=>{if(researchChoice==='yes')void flushSubmissionQueue();});
 
 
 const translations={
@@ -205,8 +372,8 @@ function search(type){const s=key(...start),g=key(...goal),prev=new Map([[s,null
 function render(){const board=$('board');board.style.gridTemplateColumns=`repeat(${N}, minmax(0, 1fr))`;board.innerHTML='';let frag=document.createDocumentFragment();for(let r=0;r<N;r++)for(let c=0;c<N;c++){const k=key(r,c),button=document.createElement('div');button.className='cell'+(grid[r][c]?' wall':'')+(showSeen.has(k)?' visited':'')+(showPath.has(k)?' path':'')+(r===goal[0]&&c===goal[1]?' goal':'')+(r===pos[0]&&c===pos[1]?' player':'');if(r===pos[0]&&c===pos[1])button.innerHTML='<span aria-hidden="true">🚀</span>';else if(r===goal[0]&&c===goal[1])button.innerHTML='<span aria-hidden="true">⭐</span>';button.title=grid[r][c]?tr('wallTitle'):tr('location',r,c);frag.appendChild(button)}board.appendChild(frag)}
 function updateStats(){ $('steps').textContent=steps;$('optimal').textContent=search('bfs').path.length-1;}
 function clearVisual(){runToken++;busy=false;showSeen.clear();showPath.clear();lastSolved=null;$('explored').textContent='—';$('route').textContent='—';reportKind='tipReset';reportData=null;$('report').innerHTML=reportState();}
-function reset(full){researchEpoch++;researchSessionLoading=false;clearVisual();if(full){experiment=null;renderResearch();makeMaze(Number($('level').value==='easy'?9:$('level').value==='hard'?17:13));}pos=[...start];steps=0;finished=false;playerStartedAt=null;completedPlayerRun=null;movementProof='';researchSession=null;renderPlayerResearch();updateStats();render();setMessage('ready');if($('researchConsent').checked&&canSubmitToServer())beginResearchRun();}
-function move(dr,dc){if(busy||finished||researchSessionLoading)return;const nr=pos[0]+dr,nc=pos[1]+dc;if(nr<0||nc<0||nr>=N||nc>=N||grid[nr][nc])return;if(playerStartedAt===null)playerStartedAt=performance.now();pos=[nr,nc];steps++;if(researchSession)movementProof+=(dr===-1?'U':dr===1?'D':dc===-1?'L':'R');$('steps').textContent=steps;render();if(nr===goal[0]&&nc===goal[1]){finished=true;const opt=search('bfs').path.length-1;completedPlayerRun={maze_size:N,player_steps:steps,optimal_steps:opt,elapsed_seconds:Math.max(0,Math.round((performance.now()-playerStartedAt)/1000))};renderPlayerResearch();setMessage('win',steps,opt)}}
+function reset(full){researchEpoch++;researchSessionLoading=false;clearVisual();if(full){experiment=null;renderResearch();makeMaze(Number($('level').value==='easy'?9:$('level').value==='hard'?17:13));}pos=[...start];steps=0;finished=false;playerStartedAt=null;completedPlayerRun=null;movementProof='';researchSession=null;renderPlayerResearch();updateStats();render();setMessage('ready');if(researchChoice==='yes'&&canSubmitToServer()&&!researchLimitReached)void beginResearchRun();else if(researchChoice==='yes'&&researchLimitReached)researchStatus(playerStrings[lang].limitReached);}
+function move(dr,dc){if(researchChoice===null){$('researchGate').scrollIntoView({block:'start',behavior:'smooth'});return;}if(busy||finished||researchSessionLoading)return;const nr=pos[0]+dr,nc=pos[1]+dc;if(nr<0||nc<0||nr>=N||nc>=N||grid[nr][nc])return;if(playerStartedAt===null)playerStartedAt=performance.now();pos=[nr,nc];steps++;if(researchSession)movementProof+=(dr===-1?'U':dr===1?'D':dc===-1?'L':'R');$('steps').textContent=steps;render();if(nr===goal[0]&&nc===goal[1]){finished=true;const opt=search('bfs').path.length-1;completedPlayerRun={maze_size:N,player_steps:steps,optimal_steps:opt,elapsed_seconds:Math.max(0,Math.round((performance.now()-playerStartedAt)/1000))};renderPlayerResearch();setMessage('win',steps,opt);if(researchChoice==='yes')enqueueCompletedResult()}}
 const movement={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1],w:[-1,0],s:[1,0],a:[0,-1],d:[0,1]};document.addEventListener('keydown',e=>{let delta=movement[e.key];if(!delta||['SELECT','BUTTON','INPUT'].includes(document.activeElement.tagName))return;e.preventDefault();move(...delta)});document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{const d={up:[-1,0],down:[1,0],left:[0,-1],right:[0,1]}[b.dataset.dir];move(...d)}));
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 $('solve').addEventListener('click',async()=>{if(busy)return;clearVisual();busy=true;const token=++runToken,type=$('algorithm').value,out=search(type);lastSolved={type,...out};setMessage('searching',type);for(let i=0;i<out.order.length;i++){if(runToken!==token)return;showSeen.add(out.order[i]);if(i%Math.max(1,Math.floor(N/7))===0){render();await sleep(23)}}for(let i=0;i<out.path.length;i++){if(runToken!==token)return;showPath.add(out.path[i]);if(i%2===0){render();await sleep(30)}}busy=false;render();$('explored').textContent=out.order.length;$('route').textContent=out.path.length-1;setMessage('solved',type,out.path.length-1,out.order.length);reportKind='solve';reportData=type;$('report').innerHTML=reportState();});
@@ -300,6 +467,6 @@ $('runBatch').addEventListener('click',runBatch);$('downloadCsv').addEventListen
 $('language').addEventListener('change',()=>{renderBatch();if(batchData.length)$('batchStatus').textContent=bt('complete',batchConfig.count)});
 renderBatch();
 
-$('new').addEventListener('click',()=>reset(true));$('level').addEventListener('change',()=>reset(true));$('reset').addEventListener('click',()=>reset(false));reset(true);switchLanguage('az');$('language').value='az';renderPlayerResearch();
+$('new').addEventListener('click',()=>reset(true));$('level').addEventListener('change',()=>reset(true));$('reset').addEventListener('click',()=>reset(false));$('researchConsent').checked=researchChoice==='yes';reset(true);switchLanguage('az');$('language').value='az';renderPlayerResearch();saveQueue();if(researchChoice==='yes'&&submissionQueue.length&&!researchLimitReached)void flushSubmissionQueue();
 })();
 </script></body></html>
